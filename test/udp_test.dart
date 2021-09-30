@@ -46,7 +46,7 @@ void main() {
     test("Unicast", () async {
       String result = "";
 
-      UDP receiver, sender;
+      UDP? receiver, sender;
 
       waitFor(Future.wait([
         UDP
@@ -79,7 +79,7 @@ void main() {
     test("Loopback", () async {
       String result = "";
 
-      UDP receiver, sender;
+      UDP? receiver, sender;
 
       waitFor(Future.wait([
         UDP.bind(Endpoint.loopback(port: Port(42))).then((udp) {
@@ -106,7 +106,7 @@ void main() {
     test("Broadcast", () async {
       String result = "";
 
-      UDP receiver, sender;
+      UDP? receiver, sender;
       waitFor(Future.wait([
         UDP.bind(Endpoint.any(port: Port(42))).then((udp) {
           receiver = udp;
@@ -132,7 +132,7 @@ void main() {
     test("Multicast", () async {
       String result = "";
 
-      UDP receiver, sender;
+      UDP? receiver, sender;
 
       var multicastEndpoint =
           Endpoint.multicast(InternetAddress("239.1.2.3"), port: Port(4540));
@@ -146,7 +146,7 @@ void main() {
         }),
         UDP.bind(Endpoint.any()).then((udp) {
           sender = udp;
-          return sender.send("Foo".codeUnits, multicastEndpoint);
+          return sender?.send("Foo".codeUnits, multicastEndpoint);
         })
       ]));
 
